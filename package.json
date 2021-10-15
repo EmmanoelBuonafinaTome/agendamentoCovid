@@ -10,6 +10,7 @@
   "dependencies": {
     "@fortawesome/fontawesome-free": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.15",
+    "@mdi/font": "^6.2.95",
     "@react-native-community/masked-view": "0.1.10",
     "@react-navigation/drawer": "^6.1.8",
     "@react-navigation/native": "^6.0.6",

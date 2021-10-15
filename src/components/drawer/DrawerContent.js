@@ -1,10 +1,8 @@
-import React from 'react';
-import { View, StyleSheet } from 'react-native';
+import React, { useState } from 'react';
+import { View, Image, StyleSheet } from 'react-native';
 import {
-  Avatar,
   Title,
   Caption,
-  Paragraph,
   Drawer,
   Text,
   TouchableRipple,
@@ -14,21 +12,73 @@ import {
   DrawerContentScrollView,
   DrawerItem
 } from '@react-navigation/drawer';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome'
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const DrawerContent = (props) => {
+
+  const [isDarkTheme, setIsDarkTheme] = useState(false);
+
+  const toggleTheme = () => {
+    setIsDarkTheme(!isDarkTheme);
+  };
+
   return(
-    <View style={{flex:1}}>
+    <View style={styles.mainView} >
       <DrawerContentScrollView>
-        <View>
-          <Text>Main</Text>
+        <View style={styles.drawerContent}>
+          <View>
+            <View style={{flexDirection:'row'}}>
+              <Image
+                style={styles.drawerMainImage}
+                source={require('../../assets/images/prefeitura-de-braganca-paulista-sp.png')}
+              />
+              <View>
+                <Title style={styles.mainTitle}>
+                  Bragança Paulista
+                </Title>
+                <Caption style={styles.captionTitleMain}>
+                  Prefeitura municipal
+                </Caption>
+              </View>
+            </View>
+            <View>
+              <Drawer.Section style={styles.drawerSection} >
+                <DrawerItem
+                  label='Home'
+                  onPress={() => {props.navigation.navigate('Home')}}
+                />
+                <DrawerItem
+                  label='Scheduling'
+                  onPress={() => {props.navigation.navigate('Scheduling')}}
+                />
+              </Drawer.Section>
+              <Drawer.Section title='Preferences'>
+                <TouchableRipple onPress={() => {toggleTheme()}}>
+                  <View style={styles.preference}>
+                    <Text>Dark Theme</Text>
+                    <View pointerEvents='none'>
+                      <Switch value={isDarkTheme}/>
+                    </View>
+                  </View>
+                </TouchableRipple>
+              </Drawer.Section>
+            </View>
+          </View>
         </View>
       </DrawerContentScrollView>
-      <Drawer.Section style={styles.bottomDrawerSection} >
+
+      <Drawer.Section>
         <DrawerItem
           label="About"
-        >
-        </DrawerItem>
+          icon={({color, size}) => (
+            <Icon
+              name='information-variant'
+              color={color}
+              size={size}
+            />
+          )}
+          onPress={() => {props.navigation.navigate('About')}}
+        />
       </Drawer.Section>
     </View>
   );
@@ -37,47 +87,31 @@ const DrawerContent = (props) => {
 export default DrawerContent;
 
 const styles = StyleSheet.create({
+  mainView: {
+    flex: 1,
+    backgroundColor: '#6fbbd3'
+  },
   drawerContent: {
     flex: 1,
   },
-  userInfoSection: {
-    paddingLeft: 20,
+  drawerMainImage: {
+    height: 50,
+    width: 50,
+    resizeMode: 'stretch'
   },
-  title: {
-    fontSize: 16,
-    marginTop: 3,
-    fontWeight: 'bold',
+  mainTitle: {
+    marginLeft: 10
   },
-  caption: {
-    fontSize: 14,
-    lineHeight: 14,
-  },
-  row: {
-    marginTop: 20,
-    flexDirection: 'row',
-    alignItems: 'center',
-  },
-  section: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginRight: 15,
-  },
-  paragraph: {
-    fontWeight: 'bold',
-    marginRight: 3,
+  captionTitleMain: {
+    marginLeft: 10
   },
   drawerSection: {
-    marginTop: 15,
-  },
-  bottomDrawerSection: {
-      marginBottom: 0,
-      borderTopColor: '#f4f4f4',
-      borderTopWidth: 1
+    marginTop: 15
   },
   preference: {
     flexDirection: 'row',
     justifyContent: 'space-between',
     paddingVertical: 12,
     paddingHorizontal: 16,
-  },
+  }
 });

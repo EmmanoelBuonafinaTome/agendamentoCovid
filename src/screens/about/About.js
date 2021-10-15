@@ -1,12 +1,12 @@
 import React from 'react';
 import { Text, View } from 'react-native';
 
-const Scheduling = () => {
+const About = () => {
   return(
     <View>
-      <Text>Scheduling</Text>
+      <Text>About</Text>
     </View>
   );
 };
 
-export default Scheduling;
+export default About;
